@@ -1,30 +1,39 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Body-Parser für JSON UND Text (wenn kein Content-Type gesetzt ist)
 app.use(express.json());
+app.use(express.text({ type: '*/*' }));
 
 app.post('/placetel/incoming', async (req, res) => {
-  const data = req.body;
-console.log("📬 Vollständiger Webhook:", JSON.stringify(data, null, 2));
-  console.log('📬 Webhook empfangen:', data);
+  let data = req.body;
 
-  if (!data.from) {
+  try {
+    if (typeof data === 'string') {
+      data = JSON.parse(data);
+    }
+  } catch (err) {
+    console.error('❌ Fehler beim Parsen des Bodys:', err.message);
+    return res.status(400).send('Invalid JSON');
+  }
+
+  console.log('📚 Vollständiger Webhook:', JSON.stringify(data));
+
+  const caller = data?.from;
+  if (!caller) {
     console.log('❌ Telefonnummer fehlt.');
     return res.sendStatus(400);
   }
 
-  const phone = data.from.replace(/\s+/g, '');
-
   try {
     const response = await axios.post(
-      'https://dispolive.de/custom/open-api/telefonanlage/contactFindByPhone',
+      'https://***REMOVED***/custom/open-api/telefonanlage/contactFindByPhone',
       {
-        phone,
+        phone: caller,
         notification: true
       },
       {
