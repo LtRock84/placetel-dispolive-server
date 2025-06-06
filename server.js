@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const DISPOLIVE_API_URL = process.env.DISPOLIVE_API_URL;
 
 app.post('/placetel/incoming', (req, res) => {
   let rawBody = '';
@@ -35,7 +36,7 @@ app.post('/placetel/incoming', (req, res) => {
 
     try {
       const response = await axios.post(
-        'https://***REMOVED***/custom/open-api/telefonanlage/contactFindByPhone',
+        DISPOLIVE_API_URL,
         {
           phone: caller,
           notification: true
