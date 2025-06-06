@@ -5,8 +5,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Body-Parser für JSON UND Text (wenn kein Content-Type gesetzt ist)
+// Body-Parser für alle Typen (JSON, URL-encoded, Text)
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.text({ type: '*/*' }));
 
 app.post('/placetel/incoming', async (req, res) => {
