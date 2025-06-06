@@ -43,7 +43,7 @@ app.post('/placetel/incoming', (req, res) => {
         },
         {
           headers: {
-            Authorization: `***REMOVED*** ${process.env.DISPOLIVE_TOKEN}`,
+            Authorization: `Bearer ${process.env.DISPOLIVE_TOKEN}`,
             'Content-Type': 'application/json'
           },
           timeout: 2000
