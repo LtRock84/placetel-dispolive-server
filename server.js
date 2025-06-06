@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 
 app.post('/placetel/incoming', async (req, res) => {
   const data = req.body;
+console.log("📬 Vollständiger Webhook:", JSON.stringify(data, null, 2));
   console.log('📬 Webhook empfangen:', data);
 
   if (!data.from) {
