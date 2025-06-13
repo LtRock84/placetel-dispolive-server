@@ -50,7 +50,7 @@ curl -X PUT https://api.placetel.de/v2/subscriptions \
   -H "Content-Type: application/json" \
   -d '{
     "service": "calls",
-    "url": "https://REDACTED/placetel/incoming",
+    "url": ""deine Render URL"/placetel/incoming",
     "incoming": true
   }'
 ```
